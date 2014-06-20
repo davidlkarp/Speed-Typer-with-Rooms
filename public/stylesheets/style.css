@@ -1,0 +1,38 @@
+body{
+	background-image:url('http://www.zingerbugimages.com/backgrounds/white_parchment_paper_wallpaper_texture_seamless.jpg');
+	font-family: Audiowide;
+	font-size: 20px;
+}
+#container{
+	display: inline-block;
+}
+#users{
+	height: 400px;
+	width: 150px;
+	border:1px solid black;
+	border-radius: 6px;
+	display: inline-block;
+	margin:20px;
+	/*background-color: #C4F66F;*/
+	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+}
+#chat{
+	height: 400px;
+	width: 275px;
+	border:1px solid black;
+	display: inline-block;
+	margin:20px;
+	border-radius: 6px;
+	/*background-color: #C4F66F;*/
+	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+}
+#main{
+	height: 400px;
+	width: 400px;
+	border:1px solid black;
+	display: inline-block;
+	margin:20px;
+	border-radius: 6px;
+	/*background-color: #C4F66F;*/
+	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+}

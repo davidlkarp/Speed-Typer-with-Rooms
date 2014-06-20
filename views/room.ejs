@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= room %></title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+
+  <body>
+    
+    <div id='container'>
+        <div id='top'>
+        	<p>Room: <%= room %> </p>
+            <p>Player:  <%= player %> </p>
+            <div id='myscore'></div>
+        </div>
+
+        <div id='users'></div>
+
+        <div id='main'>
+            <div id='word'>
+                
+            </div>
+            <div id='answer_input'>
+                <form id='answer_form' autocomplete='off'>
+                    <input class='form-control' type='text' name='answer' autofocus>
+                </form>
+            </div>
+            <div id='verdict'></div>
+        </div>
+
+        <div id='chat'>
+            <div id='chat_display'></div>
+            <div id='chat_input'></div>
+        </div>
+
+        <footer>
+            <p> created by david karp <br> copyright 2014. </p>
+        </footer>
+    </div>
+
+    <audio id='ding_sound'>
+        <source src='/sounds/ding.wav'>
+    </audio>
+    <audio id='buzzer_sound'>
+        <source src='/sounds/Buzzer.wav'>
+    </audio>
+
+
+    <script src="/socket.io/socket.io.js"></script>
+	<script>
+
+		io = io.connect();
+		$(document).ready(function(){
+
+            io.emit('ready');
+
+			io.on('new_user', function(x){
+				$('#chat_display').append("<p>" + x.message + "</p>");
+			});
+
+            io.on('user_update', function(x){
+                var scoreString = "";
+                for(var i=0; i<x.userlist.length; i++){ 
+                    scoreString += "<p>" + x.userlist[i].name + ": " + x.userlist[i].score + " (+ " + x.userlist[i].round_score + ") </p>";
+                };
+                $('#users').html(scoreString);
+            });
+
+            //enter button sends the answer to the server
+            $('#answer_form').keydown(function(x){
+                if(x.keyCode == 13) {
+                    io.emit('answerAttempt', $(this).serializeArray());
+                    console.log('Answer sent to server');
+                    return false;
+                }
+            });
+
+            //Server broadcasting the Word and client appending it tot he page
+            io.on('new_word', function(word){
+                $('#word').html("<br>" + word.word)
+            });
+
+            //receives and prints the countdown
+            io.on('countdown', function(count){
+                $('#word').html("Next Word In <br>" + count.count + "<br> Seconds");
+            });
+
+
+            //Server emiting whether clients answer is correct and updates score
+            io.on('answerValidation', function(verdict){
+                $('#verdict').html(verdict.verdict);
+                if (verdict.verdict == "Incorrect")
+                {
+                    document.getElementById('buzzer_sound').play();
+                    $('#answer_form').effect("shake");
+                    $('#answer_input').addClass("has-error"); //?
+                    document.getElementById("answer_form").reset();
+                } else {
+                    document.getElementById('ding_sound').play();
+                    $('#answer_input').removeClass("has-error");
+                    document.getElementById("answer_form").reset();
+                };
+            });
+            //updates your personal score
+            io.on('myScoreUpdate', function(score){
+                $('#myscore').html("Your Score: " + score.score + " (+" + score.round_score + ")");
+            });
+
+            //Server broadcasting a disconnect
+            io.on('disconnected', function(stuff){
+                console.log('user disconnected');
+                // time = displayTime();
+                $('#chat_display').append("SERVER: " + stuff.name + " has disconnected " + ".<br>");
+                $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
+            });
+
+            
+
+
+		});
+
+	</script>
+
+  </body>
+
+</html>
