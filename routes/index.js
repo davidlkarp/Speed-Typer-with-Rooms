@@ -175,16 +175,16 @@ module.exports = function Route(app){
 	});
 
 
-	// app.io.route('new_message', function(req) 
-	// {
-	// 	for(var i=0; i<users.length; i++){
-	// 		if(users[i].id == req.socket.id){
-	// 			var POSTER = users[i].name
-	// 		}
-	// 	}
-	// 	app.io.broadcast('update', { message: req.data[0].value, name: POSTER } );
-	// 	console.log("message sent" + req.data[0].value + POSTER);
-	// });
+	app.io.route('new_message', function(req) 
+	{
+		for(var i=0; i<users[req.session.room].length; i++){
+			if(users[req.session.room][i].id == req.socket.id){
+				var POSTER = users[req.session.room][i].name
+			}
+		}
+		app.io.room(req.session.room).broadcast('update', { message: req.data[0].value, name: POSTER } );
+		console.log("message sent" + req.data[0].value + POSTER);
+	});
 
 
   	

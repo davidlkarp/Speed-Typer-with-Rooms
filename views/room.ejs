@@ -36,7 +36,11 @@
 
         <div id='chat'>
             <div id='chat_display'></div>
-            <div id='chat_input'></div>
+            <div id='chat_input'>
+                <form id='chat_form' autocomplete='off'>
+                    <input class='form-control' type='text' name='chat_'>
+                </form>
+            </div>
         </div>
 
         <footer>
@@ -78,7 +82,17 @@
                     io.emit('answerAttempt', $(this).serializeArray());
                     console.log('Answer sent to server');
                     return false;
-                }
+                };
+            });
+
+            //enter button sends message to server to be broadcast to everyone
+            $('#chat_form').keydown(function(x){
+                if(x.keyCode == 13) {
+                    io.emit('new_message', $(this).serializeArray());
+                    console.log('message sent to server');
+                    document.getElementById("chat_form").reset();
+                    return false;
+                };
             });
 
             //Server broadcasting the Word and client appending it tot he page
@@ -120,7 +134,30 @@
                 $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
             });
 
+            //client receives message broadcast
+            io.on('update', function(message){
+                time = displayTime();
+                $('#chat_display').append(message.name + ": " + message.message + "<span class='time'> " + time + "</span>" + "<br>");
+                $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
+                // $('#chat_input').val('');
+
+            });
+
             
+
+            function displayTime() {
+                var str = "";
+                var currentTime = new Date()
+                var hours = currentTime.getHours()
+                var minutes = currentTime.getMinutes()
+                var seconds = currentTime.getSeconds()
+                if (minutes < 10) { minutes = "0" + minutes }
+                if (seconds < 10) { seconds = "0" + seconds }
+                str += hours + ":" + minutes + ":" + seconds + " ";
+                if(hours > 11){ str += "PM" } 
+                    else { str += "AM" }
+                return str;
+            };
 
 
 		});
