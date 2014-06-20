@@ -13,40 +13,55 @@
 
   <body>
     
-    <div id='container'>
-        <div id='top'>
-        	<p>Room: <%= room %> </p>
-            <p>Player:  <%= player %> </p>
-            <div id='myscore'></div>
-        </div>
-
-        <div id='users'></div>
-
-        <div id='main'>
-            <div id='word'>
-                
-            </div>
-            <div id='answer_input'>
-                <form id='answer_form' autocomplete='off'>
-                    <input class='form-control' type='text' name='answer' autofocus>
-                </form>
-            </div>
-            <div id='verdict'></div>
-        </div>
-
-        <div id='chat'>
-            <div id='chat_display'></div>
-            <div id='chat_input'>
-                <form id='chat_form' autocomplete='off'>
-                    <input class='form-control' type='text' name='chat_'>
-                </form>
+   <div id='big_container'>
+    <div id='top'>
+        <div class='container'>
+            <div class='col-md-12'>
+                <p>Room: <%= room %> </p>
+                <p>Player:  <%= player %> </p>
+                <div id='myscore'> 
+                    Your Score: 0 (+0)
+                </div>
             </div>
         </div>
-
-        <footer>
-            <p> created by david karp <br> copyright 2014. </p>
-        </footer>
     </div>
+
+    <div id='middle'>
+        <div class='container'>
+            <div id='a' class='col-lg-2 col-md-2 col-sm-3 col-xs-12 '>
+                <div id='users'></div> 
+            </div>
+
+            <div id='b' class='col-lg-6 col-md-6 col-sm-8 col-xs-12 '>
+                <div id='main'>
+                    <div id='word'></div>
+                    <div id='answer_input'>
+                        <form id='answer_form' autocomplete='off'>
+                            <input class='form-control' type='text' name='answer' autofocus>
+                        </form>
+                    </div>
+                    <div id='verdict'></div>
+                </div>
+            </div>
+
+            <div id='c' class='col-lg-4 col-md-4 col-sm-11 col-xs-12'>
+                <div id='chat'>
+                    <div id='chat_display'></div>
+                    <div id='chat_input'>
+                        <form id='chat_form' autocomplete='off'>
+                            <input class='form-control' type='text' name='chat_'>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p> created by david karp <br> copyright 2014. </p>
+    </footer>
+</div>
+
 
     <audio id='ding_sound'>
         <source src='/sounds/ding.wav'>
@@ -65,7 +80,7 @@
             io.emit('ready');
 
 			io.on('new_user', function(x){
-				$('#chat_display').append("<p>" + x.message + "</p>");
+				$('#chat_display').append("<p>" + x.message + " " + displayTime() + "</p>");
 			});
 
             io.on('user_update', function(x){
@@ -130,7 +145,7 @@
             io.on('disconnected', function(stuff){
                 console.log('user disconnected');
                 // time = displayTime();
-                $('#chat_display').append("SERVER: " + stuff.name + " has disconnected " + ".<br>");
+                $('#chat_display').append("SERVER: " + stuff.name + " has disconnected " + displayTime() + ".<br>");
                 $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
             });
 
@@ -139,8 +154,6 @@
                 time = displayTime();
                 $('#chat_display').append(message.name + ": " + message.message + "<span class='time'> " + time + "</span>" + "<br>");
                 $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
-                // $('#chat_input').val('');
-
             });
 
             

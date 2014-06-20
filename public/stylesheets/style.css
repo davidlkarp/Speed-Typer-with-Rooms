@@ -1,38 +1,80 @@
 body{
 	background-image:url('http://www.zingerbugimages.com/backgrounds/white_parchment_paper_wallpaper_texture_seamless.jpg');
 	font-family: Audiowide;
-	font-size: 20px;
-}
-#container{
-	display: inline-block;
+	font-size: 14px;
 }
 #users{
 	height: 400px;
-	width: 150px;
 	border:1px solid black;
 	border-radius: 6px;
-	display: inline-block;
-	margin:20px;
-	/*background-color: #C4F66F;*/
 	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+	padding-left: 5px;
+	padding-top: 5px;
+	overflow: auto;
 }
 #chat{
 	height: 400px;
-	width: 275px;
 	border:1px solid black;
-	display: inline-block;
-	margin:20px;
 	border-radius: 6px;
-	/*background-color: #C4F66F;*/
 	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+	overflow: auto;
+}
+#chat_display{
+	height: 300px;
+	overflow: auto;
+}
+/*@media(min-width:500px;){
+	#middle{
+		display: table;
+	}
+	#a{
+		display: table-row-group;
+	}
+	#b{
+		display: table-header-group;
+	}
+	#c{
+		display: table-footer-group;
+	}
+}*/
+@media(min-width:767px){
+	#chat{
+		height: 200px;
+		margin-top: 20px;
+	}
+	#chat_display{
+		height: 150px;
+		overflow: auto;
+	}
+}
+
+@media(min-width:992px){
+	#chat{
+		height: 400px;
+		overflow: auto;
+		margin-top: 0px;
+	}
+	#chat_display{
+		height: 300px;
+		overflow: auto;
+	}
 }
 #main{
 	height: 400px;
-	width: 400px;
 	border:1px solid black;
-	display: inline-block;
-	margin:20px;
 	border-radius: 6px;
-	/*background-color: #C4F66F;*/
 	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+	text-align: center;
+}
+#answer_input{
+	margin-top:200px;
+}
+#word{
+	height: 100px;
+	font-size: 35px;
+	padding-top: 10%
+}
+.form-control{
+	width: 80%;
+	margin-left: 10%
 }
