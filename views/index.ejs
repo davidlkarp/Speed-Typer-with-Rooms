@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Audiowide' rel='stylesheet' type='text/css'>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
 
   <body>
 
     <div id='login'> 
+        <h1> SPEED TYPER </h1>
     	<form id='loginform' action="/process" method="post"> 
-    		<p> Username: </p>
-    		<input type='text' name='name'>
-    		<p> Room: </p>
-    		<input type='text' name='room'>
-    		<p></p>
-    		<input type='submit'>
+    		<div class='form-group'>
+    			<label> Username: </label>
+    			<input type='text' name='name' class='form-control'>
+    		</div>
+    		<div class='form-group'>
+	    		<label> Room: </label>
+	    		<input type='text' name='room' class='form-control'>
+    		</div>
+    		<input type='submit' class='btn btn-success' value='Enter'>
     	</form>
     </div>
 

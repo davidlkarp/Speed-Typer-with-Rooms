@@ -1,9 +1,7 @@
 // to do list: 
-//chat functionality
-//bootstrap it
 //extra word banks, toggleable
 //uppload & refactor
-//diploy?
+//deploy?
 
 module.exports = function Route(app){
 	var global_users = []; // only for disconnect

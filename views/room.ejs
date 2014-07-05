@@ -16,12 +16,15 @@
    <div id='big_container'>
     <div id='top'>
         <div class='container'>
-            <div class='col-md-12'>
+            <div class='col-sm-3'>
                 <p>Room: <%= room %> </p>
                 <p>Player:  <%= player %> </p>
                 <div id='myscore'> 
-                    Your Score: 0 (+0)
+                    Score: 0 (+0)
                 </div>
+            </div>
+            <div class='col-sm-6'>
+            	<h1> SPEED TYPER </h1>
             </div>
         </div>
     </div>
@@ -37,7 +40,7 @@
                     <div id='word'></div>
                     <div id='answer_input'>
                         <form id='answer_form' autocomplete='off'>
-                            <input class='form-control' type='text' name='answer' autofocus>
+                            <input class='form-control' type='text' name='answer' autofocus placeholder='Enter answer here'>
                         </form>
                     </div>
                     <div id='verdict'></div>
@@ -49,7 +52,7 @@
                     <div id='chat_display'></div>
                     <div id='chat_input'>
                         <form id='chat_form' autocomplete='off'>
-                            <input class='form-control' type='text' name='chat_'>
+                            <input class='form-control' type='text' name='chat_' placeholder='Smack talk here'>
                         </form>
                     </div>
                 </div>
@@ -80,7 +83,7 @@
             io.emit('ready');
 
 			io.on('new_user', function(x){
-				$('#chat_display').append("<p>" + x.message + " " + displayTime() + "</p>");
+				$('#chat_display').append("<p>" + x.message + " " + "<span class='time'> " + displayTime() + "</span>" + "</p>");
 			});
 
             io.on('user_update', function(x){
@@ -138,21 +141,20 @@
             });
             //updates your personal score
             io.on('myScoreUpdate', function(score){
-                $('#myscore').html("Your Score: " + score.score + " (+" + score.round_score + ")");
+                $('#myscore').html("Score: " + score.score + " (+" + score.round_score + ")");
             });
 
             //Server broadcasting a disconnect
             io.on('disconnected', function(stuff){
                 console.log('user disconnected');
                 // time = displayTime();
-                $('#chat_display').append("SERVER: " + stuff.name + " has disconnected " + displayTime() + ".<br>");
+                $('#chat_display').append("SERVER: " + stuff.name + " has disconnected " + "<span class='time'> " + displayTime() + "</span>" + ".<br>");
                 $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
             });
 
             //client receives message broadcast
             io.on('update', function(message){
-                time = displayTime();
-                $('#chat_display').append(message.name + ": " + message.message + "<span class='time'> " + time + "</span>" + "<br>");
+                $('#chat_display').append(message.name + ": " + message.message + "<span class='time'> " + displayTime() + "</span>" + "<br>");
                 $("#chat_display").scrollTop($("#chat_display")[0].scrollHeight);
             });
 

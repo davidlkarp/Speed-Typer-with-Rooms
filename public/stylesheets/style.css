@@ -1,27 +1,38 @@
 body{
-	background-image:url('http://www.zingerbugimages.com/backgrounds/white_parchment_paper_wallpaper_texture_seamless.jpg');
+	background-color: black;
 	font-family: Audiowide;
 	font-size: 14px;
+	color:lime;
+}
+#login{
+	height:300px;
+	width:500px;
+	text-align:center;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:15%;
+	border:1px outset lime;
+	border-radius: 15px;
 }
 #users{
 	height: 400px;
-	border:1px solid black;
+	border:3px outset lime;
 	border-radius: 6px;
-	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
+
 	padding-left: 5px;
 	padding-top: 5px;
 	overflow: auto;
 }
 #chat{
 	height: 400px;
-	border:1px solid black;
+	border:3px outset lime;
 	border-radius: 6px;
-	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
 	overflow: auto;
 }
 #chat_display{
 	height: 300px;
 	overflow: auto;
+	padding:7px;
 }
 /*@media(min-width:500px;){
 	#middle{
@@ -61,9 +72,8 @@ body{
 }
 #main{
 	height: 400px;
-	border:1px solid black;
+	border:3px outset lime;
 	border-radius: 6px;
-	background-image:url('http://www.zingerbugimages.com/backgrounds/yellow_canvas_seamless.jpg');
 	text-align: center;
 }
 #answer_input{
@@ -78,3 +88,20 @@ body{
 	width: 80%;
 	margin-left: 10%
 }
+.time{
+	font-size:10px;
+	font-family:times;
+}
+#top{
+	margin-bottom:8px;
+}
+
+
+
+
+
+
+
+
+
+
